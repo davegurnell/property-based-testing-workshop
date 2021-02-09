@@ -2,14 +2,18 @@ package basics
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
+import org.scalacheck.Gen
 
-class MathSpec extends AnyWordSpec with Matchers {
+class MathSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPropertyChecks {
 
   def absolute(n: Int): Int =
     if (n < 0) -n else n
 
   "absolute" should {
     "turn a negative into a positive" in {
+      val numbers = Gen.negNum[Int]
+
       absolute(-2) should be > 0
     }
 
